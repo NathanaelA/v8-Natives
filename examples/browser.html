@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+
+        function sum(a, b, c) {
+            var result = 0;
+            for (var i = 0; i < arguments.length; i++) {
+                result += arguments[i];
+            }
+            return result;
+        }
+
+        // Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable
+        function sum1() {
+            sum.call(this, 1, 2, 3);
+            sum.apply(this, [1,2,3]);
+        }
+
+        // However a call with 'arguments' is considered leaking the arguments; and this is NOT optimizable.
+        function sum2() {
+            sum.call(this, arguments);
+        }
+
+        // Copying the values out of args is safe and optimizable.
+        function sum3(a) {
+            for (var i= 0,args =[];i<arguments.length;i++) args[i] = arguments[i];
+            sum.apply(this, args);
+        }
+
+        // Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable
+        function sum4() {
+            arguments[1] = 1;
+            sum(1,2);
+        }
+
+        function startTests() {
+            // Simple Hack to wait for the v8 namespace to be loaded
+            if (!v8.isNative()) {
+                notice('You need to start Chrome with the --js-flags="--allow-natives-syntax"', '#f00');
+                return;
+            }
+
+            log(0, "This is optimizable; .calls & .apply do not mess up the optimizer");
+            v8.helpers.testOptimization(sum1);
+            log(v8.getOptimizationStatus(sum1), 'sum1');
+
+            log(0, "A call with 'arguments' is considered leaking the arguments; and this is NOT optimizable.");
+            v8.helpers.testOptimization(sum2);
+            log(v8.getOptimizationStatus(sum2), 'sum2');
+
+            log(0, "Copying the values out of args is safe and optimizable.");
+            v8.helpers.testOptimization(sum3);
+            log(v8.getOptimizationStatus(sum3), 'sum3');
+
+            log(0,"Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable");
+            v8.helpers.testOptimization(sum4);
+            log(v8.getOptimizationStatus(sum4), 'sum4');
+
+            notice("Tests are now complete, you can now open the Javascript Command Console if you want...");
+        }
+
+        function log(results, routine) {
+            var id = document.getElementById('log');
+            var data = '';
+            switch (results) {
+                case 0:
+                    data = '<br><b>' + routine + '</b>';
+                    break;
+                case 1:
+                    data = routine + ' is optimized';
+                    break;
+                case 2:
+                    data = routine + ' is not optimized';
+                    break;
+                case 3:
+                    data = routine + ' is always optimized';
+                    break;
+                case 4:
+                    data = routine + ' is never optimized';
+                    break;
+                case 6:
+                    data = routine + ' is maybe de-optimized';
+                    break;
+                default:
+                    data = routine + ' has unknown status of ' + results;
+            }
+
+            id.innerHTML = id.innerHTML + data + '<br>';
+
+            if (results !== 0) {
+                id.innerHTML = id.innerHTML + "<p style='background-color: #EEE'>" + this[routine].toString() + "</p><br>";
+            }
+
+
+        }
+
+        function notice(data, color) {
+                var id = document.getElementById("notice");
+                id.innerHTML = data;
+                if (color) id.style.backgroundColor = color;
+                id.style.display='';
+        }
+
+
+    </script>
+    <script src="../lib/v8-browser.js" onload="waitForV8(startTests)"></script>
+
+    <title>Chrome v8 Natives Test</title>
+</head>
+<body>
+<div style="display:none; background-color: #00F; color: #FFF;" id="notice"></div>
+<h2>Chrome v8 Natives Test</h2><br><br>
+<div>Please note the Chrome Dev Tools must be closed when you run this; otherwise the v8 engine optimizer will IGNORE all the optimization requests.    </div>
+<br><br><div id="log"></div>
+</body>
+</html>
