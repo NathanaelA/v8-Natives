@@ -3,12 +3,16 @@
     "description"   : "A simple API for accessing v8 native instructions",
     "url"           : "http://github.com/Nathanaela/v8-natives",
     "keywords"      : ["v8", "chrome", "chromium", "optimize", "optimization", "v8-natives", "speed", "performance"],
-    "author"        : "Nathanael Anderson <nathanael.anderson@gmail.com> (http://fluentreports.com/v8)",
+    "author"        : "Nathanael Anderson <nathanael.anderson@gmail.com> (http://github.com/Nathanaela)",
     "licenses"      : "MIT",
     "lib"           : "lib",
     "bugs"          : {"url": "http://github.com/Nathanaela/v8-natives/issues"},
     "repository"    : {"type": "git", "url": "http://github.com/Nathanaela/v8-natives.git"},
     "main"          : "lib/v8-node",
-    "version"       : "0.0.1",
-    "engines"       : {"node": ">= 0.6.0" }
+    "version"       : "0.0.2",
+    "engines"       : {"node": ">= 0.6.0" },
+    "directories"   : {
+        "lib" : "lib",
+        "examples" : "examples"
+    }
 }
