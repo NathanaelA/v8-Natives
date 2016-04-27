@@ -75,7 +75,6 @@ v8.collectGarbage();
 - isObserved(obj)
 - isValidSmi(obj)
 - isSmi(obj)
-- isInPrototypeChain(item, obj)
 - hasFastSmiOrObjectElements(obj)
 - hasSloppyArgumentsElements(obj)
 
