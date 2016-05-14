@@ -9,7 +9,7 @@
     "bugs"          : {"url": "http://github.com/Nathanaela/v8-natives/issues"},
     "repository"    : {"type": "git", "url": "http://github.com/Nathanaela/v8-natives.git"},
     "main"          : "lib/v8-node",
-    "version"       : "0.0.2",
+    "version"       : "0.0.3",
     "engines"       : {"node": ">= 0.6.0" },
     "directories"   : {
         "lib" : "lib",

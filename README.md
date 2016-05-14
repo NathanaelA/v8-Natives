@@ -58,6 +58,7 @@ v8.collectGarbage();
 - collectGarbage() - Force a full Garbage Collection
 
 ### Optimization Commands
+- deoptimizeNow -
 - optimizeFunctionOnNextCall(func) - Tells v8 to optimizes the function the next time you call it
 - deoptimizeFunction(func) - De-optimize a function
 - neverOptimizeFunction(func) - Never Optimize a function
@@ -75,7 +76,6 @@ v8.collectGarbage();
 - isObserved(obj)
 - isValidSmi(obj)
 - isSmi(obj)
-- isInPrototypeChain(item, obj)
 - hasFastSmiOrObjectElements(obj)
 - hasSloppyArgumentsElements(obj)
 
