@@ -82,6 +82,7 @@ v8.collectGarbage();
 ## Notes
 ```optimizedFunctionOnNextCall(func)``` needs the function ran before it can tag it for optimization.   So the procedure is:
 - Run your function
+- Run your function (Have to do this TWICE)
 - Tag your function for optimization
 - Run your Function
 - Verify that the v8 Engine optimized it.   If it did not optimized it; then that means you have code that can't be optimized in it.  
