@@ -73,7 +73,6 @@ v8.collectGarbage();
 - hasDictionaryElements(obj)
 - hasFastHoleyElements(obj)
 - haveSameMap(obj1, obj2)
-- isObserved(obj)
 - isValidSmi(obj)
 - isSmi(obj)
 - hasFastSmiOrObjectElements(obj)
