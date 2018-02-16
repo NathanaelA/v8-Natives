@@ -37,8 +37,6 @@ if (!v8.isNative()) {
     process.exit(0);
 }
 
-console.log("Node is using v8 version:", v8.getV8Version(), "\r\n");
-
 
     function sum(a, b, c) {
         var result = 0;

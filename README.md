@@ -1,15 +1,24 @@
 # v8-Natives
+[![npm](https://img.shields.io/npm/v/v8-natives.svg)](https://www.npmjs.com/package/v8-natives)
+[![npm](https://img.shields.io/npm/l/v8-natives.svg)](https://www.npmjs.com/package/v8-natives)
+[![npm](https://img.shields.io/npm/dt/v8-natives.svg?label=npm%20downloads)](https://www.npmjs.com/package/v8-natives)
+[![Twitter Follow](https://img.shields.io/twitter/follow/congocart.svg?style=social&label=Follow%20me)](https://twitter.com/congocart)
+
+
+
+## Updated:
+Last Tested on Node 8.7 & Chrome 66 
 
 ### Access v8 Engine Natives easily in Chrome &amp; Node
 
 I was reading a blog/wiki article at [https://github.com/petkaantonov/bluebird/wiki/Optimization-killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) and it presents some really low level diagnostic commands that I was totally unaware of; and so I found them to be totally awesome in scope for several things I do.   The V8 engine has a large array of commands that you can call that can get and/or set status in the actual v8 engine.  This library is my attempt to make my life a lot easier and eliminate the errors in trying to use the v8 native commands.  These low level commands allow you access to tell the v8 engine to optimize a routine and then find out if a routine can/is optimized.  
 
-Now, you can call the v8 native commands directly (for example ```%GetV8Version()```); however if you forget to use the --allow-natives-syntax then the v8 engine will immediately stop parsing the file as the v8 commands all start with a '%' which is invalid JavaScript...  What this library does is it is a simple wrapper that wraps those calls; so that I can do (v8.getV8Version()).   If you forgot the --allow-natives-syntax it will still run your code fine; it just won't return anything but a N/A as it doesn't know the version.
+Now, you can call the v8 native commands directly (for example ```%CollectGarbage()```); however if you forget to use the --allow-natives-syntax then the v8 engine will immediately stop parsing the file as the v8 commands all start with a '%' which is invalid JavaScript...  What this library does is it is a simple wrapper that wraps those calls; so that I can do (v8.CollectGarbage()).   If you forgot the --allow-natives-syntax it will still run your code fine; it just won't do anything.
  
 In the examples folder is a browser example; to show you how it works in Chrome/Chromium (```chrome --js-flags="--allow-natives-syntax" browser.html```).  You can run it in a non-v8 browser and it will just use the dummy shim.   
 In addition there is a NodeJS example to show you the same support in NodeJS. (```node --allow-natives-syntax node.js```)
 
- Please note the examples and helper commands can show you how to use a good chunk of the optimization, general and Memory calls in the library.   If someone wants to work up some examples using the variable/opject information commands; they would gladly be accepted!
+Please note the examples and helper commands can show you how to use a good chunk of the optimization, general and Memory calls in the library.   If someone wants to work up some examples using the variable/opject information commands; they would gladly be accepted!
   
 ### Installing V8 Natives
 ```
@@ -50,7 +59,6 @@ v8.collectGarbage();
  
 ### General Commands
 - isNative() - Is the Native Support mode enabled (i.e. true = uses real wrapper; false = use dummy wrapper)
-- getV8Version() - Gets the v8 engine version
 - functionGetName(func) - Gets the string name of a function
 
 ### Memory Commands
@@ -85,3 +93,13 @@ v8.collectGarbage();
 - Tag your function for optimization
 - Run your Function
 - Verify that the v8 Engine optimized it.   If it did not optimized it; then that means you have code that can't be optimized in it.  
+
+
+#### ChangeLog
+v8 Internal function list has changed the following functions have been removed:
+- getV8Version
+- getOptimizationCount
+
+
+v8 Renamed:
+- ClearFunctionTypeFeedback to ClearFunctionFeedback

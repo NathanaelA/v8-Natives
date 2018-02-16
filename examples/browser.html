@@ -61,35 +61,56 @@
             notice("Tests are now complete, you can now open the Javascript Command Console if you want...");
         }
 
-        function log(results, routine) {
-            var id = document.getElementById('log');
-            var data = '';
-            switch (results) {
-                case 0:
-                    data = '<br><b>' + routine + '</b>';
-                    break;
-                case 1:
-                    data = routine + ' is optimized';
-                    break;
-                case 2:
-                    data = routine + ' is not optimized';
-                    break;
-                case 3:
-                    data = routine + ' is always optimized';
-                    break;
-                case 4:
-                    data = routine + ' is never optimized';
-                    break;
-                case 6:
-                    data = routine + ' is maybe de-optimized';
-                    break;
-                default:
-                    data = routine + ' has unknown status of ' + results;
-            }
+		function checkBitmap(value, bit) {
+			return ((value & bit) === bit);
+		}
+
+        function log(optStatus, routine) {
+			var id = document.getElementById('log');
+			var data = routine +' ';
+
+			var optStat = [];
+			if (checkBitmap(optStatus,1)) {
+				optStat.push("is Function");
+			}
+			if (checkBitmap(optStatus,2)) {
+				optStat.push("Never Optimized");
+			}
+			if (checkBitmap(optStatus,4)) {
+				optStat.push("Always Optimized");
+			}
+			if (checkBitmap(optStatus,8)) {
+				optStat.push("Maybe Deopted");
+			}
+			if (checkBitmap(optStatus,16)) {
+				optStat.push("Optimized");
+			}
+			if (checkBitmap(optStatus,32)) {
+				optStat.push("TurboFanned");
+			}
+			if (checkBitmap(optStatus,64)) {
+				optStat.push("Interpreted");
+			}
+			if (checkBitmap(optStatus,128)) {
+				optStat.push("Marked for Optimization");
+			}
+			if (checkBitmap(optStatus,256)) {
+				optStat.push("Marked for Concurrent Optimization");
+			}
+			if (checkBitmap(optStatus,512)) {
+				optStat.push("Conccurently Optimizating");
+			}
+			if (checkBitmap(optStatus,1024)) {
+				optStat.push("Is Executing");
+			}
+			if (checkBitmap(optStatus,2048)) {
+				optStat.push("Topmost frame is Turbo Fanned");
+			}
+            data += optStat.join(", ");
 
             id.innerHTML = id.innerHTML + data + '<br>';
 
-            if (results !== 0) {
+            if (optStatus !== 0) {
                 id.innerHTML = id.innerHTML + "<p style='background-color: #EEE'>" + this[routine].toString() + "</p><br>";
             }
 
@@ -111,8 +132,12 @@
 </head>
 <body>
 <div style="display:none; background-color: #00F; color: #FFF;" id="notice"></div>
-<h2>Chrome v8 Natives Test</h2><br><br>
+<h2>Chrome v8 Natives Test</h2><br>
+
+<center><font color="red"><h3>Please note these tests and descriptions were done BEFORE TurboFan;<br>it appears all the rules as we knew them have changed.  ;-)</h3></font></center>
+<br><br>
 <div>Please note the Chrome Dev Tools must be closed when you run this; otherwise the v8 engine optimizer will IGNORE all the optimization requests.    </div>
 <br><br><div id="log"></div>
+
 </body>
 </html>
