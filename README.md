@@ -18,7 +18,7 @@ Now, you can call the v8 native commands directly (for example ```%CollectGarbag
 In the examples folder is a browser example; to show you how it works in Chrome/Chromium (```chrome --js-flags="--allow-natives-syntax" browser.html```).  You can run it in a non-v8 browser and it will just use the dummy shim.   
 In addition there is a NodeJS example to show you the same support in NodeJS. (```node --allow-natives-syntax node.js```)
 
-Please note the examples and helper commands can show you how to use a good chunk of the optimization, general and Memory calls in the library.   If someone wants to work up some examples using the variable/opject information commands; they would gladly be accepted!
+Please note the examples and helper commands can show you how to use a good chunk of the optimization, general and Memory calls in the library.   If someone wants to work up some examples using the variable/object information commands; they would gladly be accepted!
   
 ### Installing V8 Natives
 ```
