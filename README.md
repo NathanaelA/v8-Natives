@@ -25,6 +25,16 @@ Please note the examples and helper commands can show you how to use a good chun
 npm install v8-natives
 ``` 
 
+### Breaking changes
+#### Removed from recent versions of V8
+- `setFlags`
+- `getV8Version`
+
+#### Renamed in v8
+- `functionGetName` = `getFunctionName` 
+
+
+
 ### Usage
 #### Browser:
 
@@ -97,7 +107,6 @@ v8.collectGarbage();
 
 #### ChangeLog
 v8 Internal function list has changed the following functions have been removed:
-- getV8Version
 - getOptimizationCount
 
 

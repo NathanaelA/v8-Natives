@@ -12,10 +12,16 @@
             return result;
         }
 
+        // Simple function, optimizable.
+        function sum0() {
+            sum(1,2,3);
+        }
+
         // Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable
         function sum1() {
             sum.call(this, 1, 2, 3);
             sum.apply(this, [1,2,3]);
+            throw new Error("Hi");
         }
 
         // However a call with 'arguments' is considered leaking the arguments; and this is NOT optimizable.
@@ -32,8 +38,9 @@
         // Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable
         function sum4() {
             arguments[1] = 1;
-            sum(1,2);
+            sum(arguments[1],2);
         }
+
 
         function startTests() {
             // Simple Hack to wait for the v8 namespace to be loaded
@@ -42,11 +49,15 @@
                 return;
             }
 
+            log(0, "This is optimizable");
+            v8.helpers.testOptimization(sum0);
+            log(v8.getOptimizationStatus(sum0), 'sum0');
+
             log(0, "This is optimizable; .calls & .apply do not mess up the optimizer");
             v8.helpers.testOptimization(sum1);
             log(v8.getOptimizationStatus(sum1), 'sum1');
 
-            log(0, "A call with 'arguments' is considered leaking the arguments; and this is NOT optimizable.");
+            log(0, "A call with 'arguments' is considered leaking the arguments; and this is NOT optimizable in some engines.");
             v8.helpers.testOptimization(sum2);
             log(v8.getOptimizationStatus(sum2), 'sum2');
 
@@ -54,9 +65,10 @@
             v8.helpers.testOptimization(sum3);
             log(v8.getOptimizationStatus(sum3), 'sum3');
 
-            log(0,"Using or Setting Arguments improperly (even if you don't use them afterwords) will cause it to be un-optimizable");
+            log(0, "Messing with Arguments.");
             v8.helpers.testOptimization(sum4);
             log(v8.getOptimizationStatus(sum4), 'sum4');
+
 
             notice("Tests are now complete, you can now open the Javascript Command Console if you want...");
         }
@@ -111,7 +123,7 @@
             id.innerHTML = id.innerHTML + data + '<br>';
 
             if (optStatus !== 0) {
-                id.innerHTML = id.innerHTML + "<p style='background-color: #EEE'>" + this[routine].toString() + "</p><br>";
+                id.innerHTML = id.innerHTML + "<p style='background-color: #EEE'>" + this[routine].toString().replace('<', "&lt;") + "</p><br>";
             }
 
 
@@ -136,7 +148,6 @@
 
 <center><font color="red"><h3>Please note these tests and descriptions were done BEFORE TurboFan;<br>it appears all the rules as we knew them have changed.  ;-)</h3></font></center>
 <br><br>
-<div>Please note the Chrome Dev Tools must be closed when you run this; otherwise the v8 engine optimizer will IGNORE all the optimization requests.    </div>
 <br><br><div id="log"></div>
 
 </body>

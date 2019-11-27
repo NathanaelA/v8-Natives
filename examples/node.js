@@ -1,6 +1,6 @@
 /*
  --------------------------------------
- (c)2014, Nathanael Anderson.
+ (c)2014-2019, Nathanael Anderson.
  Repository: https://github.com/Nathanaela/v8-Natives
  --------------------------------------
  v8-Natives is under The MIT License (MIT)
@@ -93,6 +93,11 @@ if (!v8.isNative()) {
 
     console.log("\r\nSum5 should optimize, sum6 won't since it is writing back to arguments.");
     testOptimization([sum5,sum6], ['sum5','sum6']);
+
+    console.log("");
+    console.log("----------------------------------");
+    console.log("Running benchmark on sum1");
+    console.log("----------------------------------");
 
 var cnt = 1000000;
 var time = benchmark(cnt, sum1);
