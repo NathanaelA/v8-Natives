@@ -4,14 +4,15 @@
     "url"           : "http://github.com/Nathanaela/v8-natives",
     "keywords"      : ["v8", "chrome", "chromium", "optimize", "optimization", "v8-natives", "speed", "performance", "nativescript"],
     "author"        : "Nathanael Anderson <nathanael.anderson@gmail.com> (http://github.com/Nathanaela)",
-  "license": {
-	"type": "MIT",
-	"url": "https://github.com/Nathanaela/v8-natives/blob/master/LICENSE"
-  },    "lib"           : "lib",
+   "license": {
+	 "type": "MIT",
+	 "url": "https://github.com/Nathanaela/v8-natives/blob/master/LICENSE"
+   },
+   "lib"           : "lib",
     "bugs"          : {"url": "http://github.com/Nathanaela/v8-natives/issues"},
     "repository"    : {"type": "git", "url": "http://github.com/Nathanaela/v8-natives.git"},
     "main"          : "lib/v8-node",
-    "version"       : "1.2.0",
+    "version"       : "1.2.5",
     "engines"       : {"node": ">= 0.6.0" },
     "directories"   : {
         "lib" : "lib",

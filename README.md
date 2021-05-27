@@ -7,7 +7,7 @@
 
 
 ## Updated:
-Last Tested on Node 8.7 & Chrome 66 
+Last Tested on Node 14 & Chrome 80+
 
 ### Access v8 Engine Natives easily in Chrome &amp; Node
 
